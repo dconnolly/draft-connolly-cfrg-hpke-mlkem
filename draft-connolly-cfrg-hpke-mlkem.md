@@ -221,7 +221,6 @@ Identifiers" registry.
 --- back
 
 # Acknowledgments
-{:numbered="false"}
 
 The authors would like to thank Cas Cremers for their input.
 
@@ -230,8 +229,11 @@ The authors would like to thank Cas Cremers for their input.
 > **RFC Editor's Note:** Please remove this section prior to publication
 > of a final version of this document.
 
+TODO
 
 ## Since draft-connolly-cfrg-hpke-mlkem-00
+
+TODO
 
 # Test Vectors
 
