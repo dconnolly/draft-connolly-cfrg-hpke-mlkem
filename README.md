@@ -1,6 +1,6 @@
-# TODO - Your title
+# ML-KEM for HPKE
 
-This is the working area for the individual Internet-Draft, "TODO - Your title".
+This is the working area for the individual Internet-Draft, "ML-KEM for HPKE".
 
 * [Editor's Copy](https://dconnolly.github.io/draft-connolly-cfrg-hpke-mlkem/#go.draft-connolly-cfrg-hpke-mlkem.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-connolly-cfrg-hpke-mlkem)
@@ -27,4 +27,3 @@ $ make
 
 Command line usage requires that you have the necessary software installed.  See
 [the instructions](https://github.com/martinthomson/i-d-template/blob/main/doc/SETUP.md).
-
