@@ -36,16 +36,6 @@ normative:
   FIPS203: DOI.10.6028/NIST.FIPS.203
 
 informative:
-  FIPS203-ipd:
-    title: "Module-Lattice-based Key-Encapsulation Mechanism Standard"
-    author:
-      org: National Institute of Standards and Technology (NIST)
-    date: 2023-08-24
-    seriesinfo:
-      NIST: Federal Information Processing Standards
-    format:
-      PDF: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.ipd.pdf
-
   CDM23:
     title: "Keeping Up with the KEMs: Stronger Security Notions for KEMs and automated analysis of KEM-based protocols"
     target: https://eprint.iacr.org/2023/1933.pdf
@@ -63,43 +53,6 @@ informative:
         ins: N. Medinger
         name: Niklas Medinger
         org: CISPA Helmholtz Center for Information Security
-
-  NIST-PQ:
-    title: "Post-Quantum Cryptography"
-    author:
-      org: National Institute of Standards and Technology (NIST)
-    date: 2016-2024
-    seriesinfo:
-      https://csrc.nist.gov/projects/post-quantum-cryptography
-
-  KYBERV302:
-    target: https://pq-crystals.org/kyber/data/kyber-specification-round3-20210804.pdf
-    title: CRYSTALS-Kyber, Algorithm Specification And Supporting Documentation (version 3.02)
-    author:
-      -
-        ins: R. Avanzi
-      -
-        ins: J. Bos
-      -
-        ins: L. Ducas
-      -
-        ins: E. Kiltz
-      -
-        ins: T. Lepoint
-      -
-        ins: V. Lyubashevsky
-      -
-        ins: J. Schanck
-      -
-        ins: P. Schwabe
-      -
-        ins: G. Seiler
-      -
-        ins: D. Stehle # TODO unicode in references
-    date: 2021
-    format:
-      PDF: https://pq-crystals.org/kyber/data/kyber-specification-round3-20210804.pdf
-
 
 --- abstract
 
@@ -287,7 +240,7 @@ found in {{RFC9180}}, with two changes.  First, we only provide vectors
 for the non-authenticated modes of operation.  Secondly, as ML-KEM
 encapsulation does not involve an ephemeral keypair, we omit the ikmE,
 skEm, pkEm entries and provide an ier entry instead.  The value of ier
-is the randomness used to encapsulate, so ier[0:32] is the seed that is
+is the randomness used to encapsulate, so `ier[0:32]` is the seed that is
 fed to H in the first step of ML-KEM encapsulation in {{FIPS203}}.
 
 ## ML-KEM-768, HKDF-SHA256, AES-128-GCM
