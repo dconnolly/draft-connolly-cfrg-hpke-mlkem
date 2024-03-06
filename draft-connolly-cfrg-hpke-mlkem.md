@@ -119,7 +119,7 @@ def Decap(enc, skR):
 
 ## AuthEncap and AuthDecap
 
-HPKE-ML-KEM is not an authenticeted KEM and does not support AuthEncap()
+HPKE-ML-KEM is not an authenticated KEM and does not support AuthEncap()
 or AuthDecap(), see {{S-notauth}}.
 
 # Security Considerations
