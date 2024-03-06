@@ -144,7 +144,7 @@ Table of Contents
 
 3.2.  AuthEncap and AuthDecap
 
-   HPKE-ML-KEM is not an authenticeted KEM and does not support
+   HPKE-ML-KEM is not an authenticated KEM and does not support
    AuthEncap() or AuthDecap(), see Section 1.2.
 
 4.  Security Considerations
