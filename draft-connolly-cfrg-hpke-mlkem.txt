@@ -4,8 +4,8 @@
 
 Crypto Forum                                                 D. Connolly
 Internet-Draft                                                 SandboxAQ
-Intended status: Informational                          21 February 2024
-Expires: 24 August 2024
+Intended status: Informational                              6 March 2024
+Expires: 7 September 2024
 
 
                             ML-KEM for HPKE
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 August 2024.
+   This Internet-Draft will expire on 7 September 2024.
 
 Copyright Notice
 
@@ -128,17 +128,19 @@ Table of Contents
 
 3.1.  Encap and Decap
 
-   ~~ def Encap(pkR): ss, ct = MLKEM.Encaps(pkR)
+   def Encap(pkR):
+     ss, ct = MLKEM.Encaps(pkR)
 
-   shared_secret = ExtractAndExpand(ss, ct)
+     shared_secret = ExtractAndExpand(ss, ct)
 
-   return shared_secret, ct ~~
+     return shared_secret, ct
 
-   ~~ def Decap(enc, skR): ss, ct = MLKEM.Decaps(enc, skR)
+   def Decap(enc, skR):
+     ss, ct = MLKEM.Decaps(enc, skR)
 
-   shared_secret = ExtractAndExpand(ss, ct)
+     shared_secret = ExtractAndExpand(ss, ct)
 
-   return shared_secret, ct ~~
+     return shared_secret, ct
 
 3.2.  AuthEncap and AuthDecap
 
