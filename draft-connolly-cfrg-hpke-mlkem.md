@@ -99,23 +99,23 @@ AES-256-GCM as the AEADs for ML-KEM-768 and ML-KEM-1024 respectively.
 
 ## Encap and Decap
 
-~~
+~~~
 def Encap(pkR):
   ss, ct = MLKEM.Encaps(pkR)
 
   shared_secret = ExtractAndExpand(ss, ct)
 
   return shared_secret, ct
-~~
+~~~
 
-~~
+~~~
 def Decap(enc, skR):
   ss, ct = MLKEM.Decaps(enc, skR)
 
   shared_secret = ExtractAndExpand(ss, ct)
 
   return shared_secret, ct
-~~
+~~~
 
 ## AuthEncap and AuthDecap
 
