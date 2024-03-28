@@ -11,7 +11,7 @@
 ciphersuites for HPKE (RFC9180). ML-KEM is believed to be secure even
 against adversaries who possess a quantum computer. 
     " name="description">
-<meta content="xml2rfc 3.20.0" name="generator">
+<meta content="xml2rfc 3.20.1" name="generator">
 <meta content="post quantum" name="keyword">
 <meta content="kem" name="keyword">
 <meta content="PQ" name="keyword">
@@ -19,7 +19,7 @@ against adversaries who possess a quantum computer.
 <meta content="hybrid encryption" name="keyword">
 <meta content="draft-connolly-cfrg-hpke-mlkem-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.20.0
+  xml2rfc 3.20.1
     Python 3.11.8
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
@@ -1035,7 +1035,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Connolly</td>
-<td class="center">Expires 7 September 2024</td>
+<td class="center">Expires 29 September 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1048,12 +1048,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-connolly-cfrg-hpke-mlkem-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-03-06" class="published">6 March 2024</time>
+<time datetime="2024-03-28" class="published">28 March 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-09-07">7 September 2024</time></dd>
+<dd class="expires"><time datetime="2024-09-29">29 September 2024</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1105,7 +1105,7 @@ against adversaries who possess a quantum computer.<a href="#section-abstract-1"
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 September 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 29 September 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1217,7 +1217,7 @@ move to exclusively post-quantum algorithms, having a pure PQ choice for
 public-key hybrid encryption is desireable. HPKE is the leading modern
 protocol for public-key encryption, and ML-KEM as a post-quantum
 IND-CCA2-secure KEM fits nicely into HPKE's design. Supporting multiple
-security levels for ML-KEM allow a spectrum of use cases including
+security levels for ML-KEM allows a spectrum of use cases including
 settings where NIST PQ security category 5 is required.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1226,7 +1226,7 @@ settings where NIST PQ security category 5 is required.<a href="#section-1.1-1" 
         <h3 id="name-not-an-authenticated-kem">
 <a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-not-an-authenticated-kem" class="section-name selfRef">Not an authenticated KEM</a>
         </h3>
-<p id="section-1.2-1">ML-KEM is a plain KEM that does not support the static-ephemeral key
+<p id="section-1.2-1">ML-KEM is a plain KEM that does not support the static-static key
 exchange that allows HPKE based on Diffie-Hellman based KEMs its
 (optional) authenticated modes.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
 </section>
@@ -1249,14 +1249,13 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-construction">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-construction" class="section-name selfRef">Construction</a>
       </h2>
-<p id="section-3-1">We construct 'wrapper' KEMs based on ML-KEM to bind the encapsulated
-shared secret ciphertext into the shared secret value, such that the
-final KEM has similar binding security properties as the original DHKEM
-HPKE was designed around.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">We construct 'wrapper' KEMs based on ML-KEM to bind the KEM shared secret to
+the KEM ciphertext, such that the final KEM has similar binding security
+properties as the original DHKEM which HPKE was designed around.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">The encapsulation and decapsulation keys are computed, serialized, and
 deserialized the same as in <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>.<a href="#section-3-2" class="pilcrow">¶</a></p>
 <p id="section-3-3">We use HKDF-SHA256 and HKDF-SHA512 as the HPKE KDFs and AES-128-GCM and
-AES-256-GCM as the AEADs for ML-KEM-768 and ML-KEM-1024 respectively.<a href="#section-3-3" class="pilcrow">¶</a></p>
+AES-256-GCM as the AEADs for ML-KEM-768 and ML-KEM-1024, respectively.<a href="#section-3-3" class="pilcrow">¶</a></p>
 <div id="encap-and-decap">
 <section id="section-3.1">
         <h3 id="name-encap-and-decap">
@@ -1300,9 +1299,9 @@ or AuthDecap(), see <a href="#S-notauth" class="auto internal xref">Section 1.2<
       <h2 id="name-security-considerations">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-4-1">HPKE's IND-CCA2 security relies upon the IND-CCA2 security of the
-underlying KEM and AEAD schemes. ML-KEM is believed to be IND-CCA secure
-via multiple analyses.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">HPKE's IND-CCA2 security relies upon the IND-CCA and IND-CCA2 security
+of the underlying KEM and AEAD schemes, respectively. ML-KEM is believed
+to be IND-CCA secure via multiple analyses.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4-2">The HPKE key schedule is independent of the encapsulated KEM shared
 secret ciphertext of the ciphersuite KEM, and dependent on the shared
 secret produced by the KEM. If HPKE had committed to the encapsulated
@@ -1323,7 +1322,7 @@ LEAK-BIND-PK,K-CT security, where the involved key pairs are output by
 the key generation algorithm of the KEM and then leaked to the
 adversary. LEAK-BIND-PK,K-CT is a weaker property than the DHKEM
 properties as it is not resistant in the presence of an actively
-malicious adversary, and requires both the shared secret _and_the public
+malicious adversary, and requires both the shared secret <em>and</em> the public
 key together to uniquely bind the ciphertext, so its shared secret alone
 is insufficient.<a href="#section-4-4" class="pilcrow">¶</a></p>
 <p id="section-4-5">This results in a wrapper construction around ML-KEM to bind to the
