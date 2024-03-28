@@ -71,12 +71,12 @@ move to exclusively post-quantum algorithms, having a pure PQ choice for
 public-key hybrid encryption is desireable. HPKE is the leading modern
 protocol for public-key encryption, and ML-KEM as a post-quantum
 IND-CCA2-secure KEM fits nicely into HPKE's design. Supporting multiple
-security levels for ML-KEM allow a spectrum of use cases including
+security levels for ML-KEM allows a spectrum of use cases including
 settings where NIST PQ security category 5 is required.
 
 ## Not an authenticated KEM {#S-notauth}
 
-ML-KEM is a plain KEM that does not support the static-ephemeral key
+ML-KEM is a plain KEM that does not support the static-static key
 exchange that allows HPKE based on Diffie-Hellman based KEMs its
 (optional) authenticated modes.
 
@@ -86,16 +86,15 @@ exchange that allows HPKE based on Diffie-Hellman based KEMs its
 
 # Construction
 
-We construct 'wrapper' KEMs based on ML-KEM to bind the encapsulated
-shared secret ciphertext into the shared secret value, such that the
-final KEM has similar binding security properties as the original DHKEM
-HPKE was designed around.
+We construct 'wrapper' KEMs based on ML-KEM to bind the KEM shared secret to
+the KEM ciphertext, such that the final KEM has similar binding security
+properties as the original DHKEM which HPKE was designed around.
 
 The encapsulation and decapsulation keys are computed, serialized, and
 deserialized the same as in {{FIPS203}}.
 
 We use HKDF-SHA256 and HKDF-SHA512 as the HPKE KDFs and AES-128-GCM and
-AES-256-GCM as the AEADs for ML-KEM-768 and ML-KEM-1024 respectively.
+AES-256-GCM as the AEADs for ML-KEM-768 and ML-KEM-1024, respectively.
 
 ## Encap and Decap
 
@@ -124,9 +123,9 @@ or AuthDecap(), see {{S-notauth}}.
 
 # Security Considerations
 
-HPKE's IND-CCA2 security relies upon the IND-CCA2 security of the
-underlying KEM and AEAD schemes. ML-KEM is believed to be IND-CCA secure
-via multiple analyses.
+HPKE's IND-CCA2 security relies upon the IND-CCA and IND-CCA2 security
+of the underlying KEM and AEAD schemes, respectively. ML-KEM is believed
+to be IND-CCA secure via multiple analyses.
 
 The HPKE key schedule is independent of the encapsulated KEM shared
 secret ciphertext of the ciphersuite KEM, and dependent on the shared
@@ -150,7 +149,7 @@ LEAK-BIND-PK,K-CT security, where the involved key pairs are output by
 the key generation algorithm of the KEM and then leaked to the
 adversary. LEAK-BIND-PK,K-CT is a weaker property than the DHKEM
 properties as it is not resistant in the presence of an actively
-malicious adversary, and requires both the shared secret _and_the public
+malicious adversary, and requires both the shared secret _and_ the public
 key together to uniquely bind the ciphertext, so its shared secret alone
 is insufficient.
 
