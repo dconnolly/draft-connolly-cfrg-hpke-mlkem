@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-28T00:18:00.634440+00:00",
+  "timestamp": "2024-03-31T00:20:30.037645+00:00",
   "repo": "dconnolly/draft-connolly-cfrg-hpke-mlkem",
   "labels": [
     {
@@ -164,6 +164,48 @@
           "body": "\ud83d\ude4f",
           "createdAt": "2024-03-06T03:11:29Z",
           "updatedAt": "2024-03-06T03:11:29Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOLLka3c5rF7pJ",
+      "title": "Fix language on authenticated mode, and other improvements.",
+      "url": "https://github.com/dconnolly/draft-connolly-cfrg-hpke-mlkem/pull/5",
+      "state": "MERGED",
+      "author": "blipp",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-03-28T19:14:20Z",
+      "updatedAt": "2024-03-28T19:34:13Z",
+      "baseRepository": "dconnolly/draft-connolly-cfrg-hpke-mlkem",
+      "baseRefName": "main",
+      "baseRefOid": "719204605ea04c285c61b5b7a65e2c2029f84468",
+      "headRepository": "blipp/draft-connolly-cfrg-hpke-mlkem",
+      "headRefName": "main",
+      "headRefOid": "85902e5c9cb62a96b0f25bf381c8b07754c6015c",
+      "closedAt": "2024-03-28T19:34:13Z",
+      "mergedAt": "2024-03-28T19:34:13Z",
+      "mergedBy": "dconnolly",
+      "mergeCommit": {
+        "oid": "12350ca5b84f9eb86e8b271ef80baa5f1e64609c"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLLka3c51P6kt",
+          "commit": {
+            "abbreviatedOid": "85902e5"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-03-28T19:34:07Z",
+          "updatedAt": "2024-03-28T19:34:07Z",
           "comments": []
         }
       ]
