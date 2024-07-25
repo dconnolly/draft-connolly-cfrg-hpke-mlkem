@@ -116,10 +116,56 @@ def Decap(enc, skR):
   return shared_secret, ct
 ~~~
 
+## Generic Construction
+
+~~~
+KEM.Encap(pkR)
+KEM.Decap(enc,skR)
+
+def KEM.EncapWithBinding(pkR):
+      ss,enc = KEM.Encap(pkR)
+      pkRm = SerializePublicKey(pkR)
+      kem_context = concat(enc, pkRm) 
+      shared_secret = ExtractAndExpand(ss, kem_context)
+      return shared_secret, enc  
+
+def KEM.DecapWithBinding(enc, skR):
+      ss = KEM.Decap(enc,skR) 
+      pkRm = SerializePublicKey(pk(skR))
+      kem_context = concat(enc, pkRm)
+      shared_secret = ExtractAndExpand(ss, kem_context)
+      return shared_secret
+~~~
+
 ## AuthEncap and AuthDecap
 
 HPKE-ML-KEM is not an authenticated KEM and does not support AuthEncap()
 or AuthDecap(), see {{S-notauth}}.
+
+### Generic Construction
+
+~~~
+def SigKEM.AuthEncap(sig_kS, pkR):
+      ss,enc = KEM.Encap(pkR)
+      pkRm = SerializePublicKey(pkR)
+      pkSm = SerializePublicKey(Sig.pk(sig_kS))
+      sig_kem_context = concat(enc, pkRm, pkSm) 
+      sig = Sig.Sign(sig_kS, sig_kem_context)
+      enc_sig = concat(enc, sig)
+      shared_secret = ExtractAndExpand(ss, kem_context)
+      return shared_secret, enc_sig
+
+def SigKEM.AuthDecap(enc, skR, verif_kS):
+      enc, sig = split(enc, enc.len() - Sig.sig_len)
+      ss = KEM.Decap(enc, skR) 
+      pkRm = SerializePublicKey(pk(skR))
+      pkSm = SerializePublicKey(pkS)
+      sig_kem_context = concat(enc, pkRm, pkSm) 
+      if Sig.verify(verif_kS, sig_kem_context, sig) then
+         shared_secret = ExtractAndExpand(ss, kem_context)
+         return shared_secret
+      else Error
+~~~
 
 # Security Considerations
 
