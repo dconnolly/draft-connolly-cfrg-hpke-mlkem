@@ -22,8 +22,8 @@ venue:
   type: "Research Group"
   mail: "cfrg@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/search/?email_list=cfrg"
-  github: "dconnolly/draft-connolly-cfrg-xwing-kem"
-  latest: "https://dconnolly.github.io/draft-connolly-cfrg-xwing-kem/draft-connolly-cfrg-xwing-kem.html"
+  github: "dconnolly/draft-connolly-cfrg-hpke-mlkem"
+  latest: "https://dconnolly.github.io/draft-connolly-cfrg-hpke-mlkem/draft-connolly-cfrg-hpke-mlkem.html"
 
 author:
  -
@@ -64,7 +64,7 @@ informative:
 
 --- abstract
 
-This memo defines ML-KEM-based ciphersuites for HPKE (RFC9180). ML-KEM is
+This memo defines ML-KEM-based ciphersuites for HPKE ({{RFC9180}}). ML-KEM is
 believed to be secure even against adversaries who possess a
 cryptographically-relevant et-quantum computer.
 
