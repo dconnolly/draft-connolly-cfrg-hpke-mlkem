@@ -66,7 +66,7 @@ informative:
 
 This memo defines ML-KEM-based ciphersuites for HPKE ({{RFC9180}}). ML-KEM is
 believed to be secure even against adversaries who possess a
-cryptographically-relevant et-quantum computer.
+cryptographically-relevant quantum computer.
 
 --- middle
 
@@ -74,19 +74,19 @@ cryptographically-relevant et-quantum computer.
 
 ## Motivation {#motiv}
 
-The final draft for ML-KEM is expected in 2024. For parties that must
-move to exclusively post-quantum algorithms, having a pure PQ choice for
-public-key hybrid encryption is desireable. HPKE is the leading modern
-protocol for public-key encryption, and ML-KEM as a post-quantum
-IND-CCA2-secure KEM fits nicely into HPKE's design. Supporting multiple
-security levels for ML-KEM allows a spectrum of use cases including
-settings where NIST PQ security category 5 is required.
+The final draft for ML-KEM is expected in 2024. For parties that must move to
+exclusively post-quantum algorithms, having a pure PQ choice for public-key
+hybrid encryption is desireable. HPKE is the leading modern protocol for
+public-key encryption, and ML-KEM as a post-quantum IND-CCA2-secure KEM fits
+nicely into HPKE's design. Supporting multiple security levels for ML-KEM
+allows a spectrum of use cases including settings where NIST PQ security
+category 5 is required.
 
 ## Not an authenticated KEM {#S-notauth}
 
-ML-KEM is a plain KEM that does not support the static-static key
-exchange that allows HPKE based on Diffie-Hellman based KEMs its
-(optional) authenticated modes.
+ML-KEM is a plain KEM that does not support the static-static key exchange
+that allows HPKE based on Diffie-Hellman based KEMs its (optional)
+authenticated modes.
 
 # Conventions and Definitions {#conventions}
 
@@ -115,8 +115,8 @@ AES-256-GCM as the AEADs for ML-KEM-512, ML-KEM-768, and ML-KEM-1024.
 
 ## AuthEncap and AuthDecap
 
-HPKE-ML-KEM is not an authenticated KEM and does not support AuthEncap()
-or AuthDecap(), see {{S-notauth}}.
+HPKE-ML-KEM is not an authenticated KEM and does not support AuthEncap() or
+AuthDecap(), see {{S-notauth}}.
 
 # Security Considerations
 
@@ -256,13 +256,13 @@ TODO
 
 # Test Vectors
 
-This section contains test vectors formatted similary to that which are
-found in {{RFC9180}}, with two changes.  First, we only provide vectors
-for the non-authenticated modes of operation.  Secondly, as ML-KEM
-encapsulation does not involve an ephemeral keypair, we omit the ikmE,
-skEm, pkEm entries and provide an ier entry instead.  The value of ier
-is the randomness used to encapsulate, so `ier[0:32]` is the seed that is
-fed to H in the first step of ML-KEM encapsulation in {{FIPS203}}.
+This section contains test vectors formatted similary to that which are found
+in {{RFC9180}}, with two changes.  First, we only provide vectors for the
+non-authenticated modes of operation.  Secondly, as ML-KEM encapsulation does
+not involve an ephemeral keypair, we omit the ikmE, skEm, pkEm entries and
+provide an ier entry instead.  The value of ier is the randomness used to
+encapsulate, so `ier[0:32]` is the seed that is fed to H in the first step of
+ML-KEM encapsulation in {{FIPS203}}.
 
 ## ML-KEM-512, HKDF-SHA256, AES-128-GCM
 
