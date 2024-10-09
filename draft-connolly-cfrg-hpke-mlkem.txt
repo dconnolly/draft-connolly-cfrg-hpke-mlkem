@@ -13,17 +13,17 @@ Expires: 12 April 2025
 
 Abstract
 
-   This memo defines ML-KEM-based ciphersuites for HPKE (RFC9180).  ML-
-   KEM is believed to be secure even against adversaries who possess a
-   cryptographically-relevant et-quantum computer.
+   This memo defines ML-KEM-based ciphersuites for HPKE ([RFC9180]).
+   ML-KEM is believed to be secure even against adversaries who possess
+   a cryptographically-relevant et-quantum computer.
 
 About This Document
 
    This note is to be removed before publishing as an RFC.
 
    The latest revision of this draft can be found at
-   https://dconnolly.github.io/draft-connolly-cfrg-xwing-kem/draft-
-   connolly-cfrg-xwing-kem.html.  Status information for this document
+   https://dconnolly.github.io/draft-connolly-cfrg-hpke-mlkem/draft-
+   connolly-cfrg-hpke-mlkem.html.  Status information for this document
    may be found at https://datatracker.ietf.org/doc/draft-connolly-cfrg-
    hpke-mlkem/.
 
@@ -33,7 +33,7 @@ About This Document
    at https://www.ietf.org/mailman/listinfo/cfrg/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/dconnolly/draft-connolly-cfrg-xwing-kem.
+   https://github.com/dconnolly/draft-connolly-cfrg-hpke-mlkem.
 
 Status of This Memo
 
