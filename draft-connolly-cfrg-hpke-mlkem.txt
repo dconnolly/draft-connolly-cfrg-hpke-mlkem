@@ -4,8 +4,8 @@
 
 Crypto Forum                                                 D. Connolly
 Internet-Draft                                                 SandboxAQ
-Intended status: Informational                            4 October 2024
-Expires: 7 April 2025
+Intended status: Informational                            9 October 2024
+Expires: 12 April 2025
 
 
                             ML-KEM for HPKE
@@ -13,9 +13,9 @@ Expires: 7 April 2025
 
 Abstract
 
-   This memo defines the ML-KEM-based ciphersuites for HPKE (RFC9180).
-   ML-KEM is believed to be secure even against adversaries who possess
-   a quantum computer.
+   This memo defines ML-KEM-based ciphersuites for HPKE (RFC9180).  ML-
+   KEM is believed to be secure even against adversaries who possess a
+   cryptographically-relevant et-quantum computer.
 
 About This Document
 
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 April 2025.
+   This Internet-Draft will expire on 12 April 2025.
 
 Copyright Notice
 
@@ -135,7 +135,7 @@ Table of Contents
 
    We use HKDF-SHA256 and HKDF-SHA512 as the HPKE KDFs and AES-128-GCM
    and AES-256-GCM as the AEADs for ML-KEM-512, ML-KEM-768, and ML-KEM-
-   1024, respectively.
+   1024.
 
 3.1.  AuthEncap and AuthDecap
 
@@ -187,7 +187,23 @@ Table of Contents
    This document requests/registers two new entries to the "HPKE KEM
    Identifiers" registry.
 
-   Value:  0x0070 (please)
+   Value:  0x0512 (please)
+
+   KEM:  ML-KEM-512
+
+   Nsecret:  32
+
+   Nenc:  768
+
+   Npk:  800
+
+   Nsk:  1632
+
+   Auth:  no
+
+   Reference:  This document
+
+   Value:  0x0768 (please)
 
    KEM:  ML-KEM-768
 
@@ -203,7 +219,7 @@ Table of Contents
 
    Reference:  This document
 
-   Value:  0x0080 (please)
+   Value:  0x1024 (please)
 
    KEM:  ML-KEM-1024
 
