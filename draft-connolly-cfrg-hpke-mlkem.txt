@@ -15,7 +15,7 @@ Abstract
 
    This memo defines ML-KEM-based ciphersuites for HPKE ([RFC9180]).
    ML-KEM is believed to be secure even against adversaries who possess
-   a cryptographically-relevant et-quantum computer.
+   a cryptographically-relevant quantum computer.
 
 About This Document
 

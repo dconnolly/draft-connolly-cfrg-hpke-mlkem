@@ -9,7 +9,7 @@
 <meta content="
        This memo defines ML-KEM-based ciphersuites for HPKE ( ). ML-KEM is
 believed to be secure even against adversaries who possess a
-cryptographically-relevant et-quantum computer. 
+cryptographically-relevant quantum computer. 
     " name="description">
 <meta content="xml2rfc 3.23.2" name="generator">
 <meta content="post quantum" name="keyword">
@@ -1067,7 +1067,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This memo defines ML-KEM-based ciphersuites for HPKE (<span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>). ML-KEM is
 believed to be secure even against adversaries who possess a
-cryptographically-relevant et-quantum computer.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+cryptographically-relevant quantum computer.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1211,13 +1211,13 @@ cryptographically-relevant et-quantum computer.<a href="#section-abstract-1" cla
         <h3 id="name-motivation">
 <a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-motivation" class="section-name selfRef">Motivation</a>
         </h3>
-<p id="section-1.1-1">The final draft for ML-KEM is expected in 2024. For parties that must
-move to exclusively post-quantum algorithms, having a pure PQ choice for
-public-key hybrid encryption is desireable. HPKE is the leading modern
-protocol for public-key encryption, and ML-KEM as a post-quantum
-IND-CCA2-secure KEM fits nicely into HPKE's design. Supporting multiple
-security levels for ML-KEM allows a spectrum of use cases including
-settings where NIST PQ security category 5 is required.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+<p id="section-1.1-1">The final draft for ML-KEM is expected in 2024. For parties that must move to
+exclusively post-quantum algorithms, having a pure PQ choice for public-key
+hybrid encryption is desireable. HPKE is the leading modern protocol for
+public-key encryption, and ML-KEM as a post-quantum IND-CCA2-secure KEM fits
+nicely into HPKE's design. Supporting multiple security levels for ML-KEM
+allows a spectrum of use cases including settings where NIST PQ security
+category 5 is required.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="S-notauth">
@@ -1225,9 +1225,9 @@ settings where NIST PQ security category 5 is required.<a href="#section-1.1-1" 
         <h3 id="name-not-an-authenticated-kem">
 <a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-not-an-authenticated-kem" class="section-name selfRef">Not an authenticated KEM</a>
         </h3>
-<p id="section-1.2-1">ML-KEM is a plain KEM that does not support the static-static key
-exchange that allows HPKE based on Diffie-Hellman based KEMs its
-(optional) authenticated modes.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
+<p id="section-1.2-1">ML-KEM is a plain KEM that does not support the static-static key exchange
+that allows HPKE based on Diffie-Hellman based KEMs its (optional)
+authenticated modes.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1268,8 +1268,8 @@ AES-256-GCM as the AEADs for ML-KEM-512, ML-KEM-768, and ML-KEM-1024.<a href="#s
         <h3 id="name-authencap-and-authdecap">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-authencap-and-authdecap" class="section-name selfRef">AuthEncap and AuthDecap</a>
         </h3>
-<p id="section-3.1-1">HPKE-ML-KEM is not an authenticated KEM and does not support AuthEncap()
-or AuthDecap(), see <a href="#S-notauth" class="auto internal xref">Section 1.2</a>.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">HPKE-ML-KEM is not an authenticated KEM and does not support AuthEncap() or
+AuthDecap(), see <a href="#S-notauth" class="auto internal xref">Section 1.2</a>.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1528,13 +1528,13 @@ of a final version of this document.<a href="#appendix-B-1.1.1" class="pilcrow">
       <h2 id="name-test-vectors">
 <a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-test-vectors" class="section-name selfRef">Test Vectors</a>
       </h2>
-<p id="appendix-C-1">This section contains test vectors formatted similary to that which are
-found in <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>, with two changes.  First, we only provide vectors
-for the non-authenticated modes of operation.  Secondly, as ML-KEM
-encapsulation does not involve an ephemeral keypair, we omit the ikmE,
-skEm, pkEm entries and provide an ier entry instead.  The value of ier
-is the randomness used to encapsulate, so <code>ier[0:32]</code> is the seed that is
-fed to H in the first step of ML-KEM encapsulation in <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-1">This section contains test vectors formatted similary to that which are found
+in <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>, with two changes.  First, we only provide vectors for the
+non-authenticated modes of operation.  Secondly, as ML-KEM encapsulation does
+not involve an ephemeral keypair, we omit the ikmE, skEm, pkEm entries and
+provide an ier entry instead.  The value of ier is the randomness used to
+encapsulate, so <code>ier[0:32]</code> is the seed that is fed to H in the first step of
+ML-KEM encapsulation in <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 <div id="ml-kem-512-hkdf-sha256-aes-128-gcm">
 <section id="appendix-C.1">
         <h3 id="name-ml-kem-512-hkdf-sha256-aes-">
