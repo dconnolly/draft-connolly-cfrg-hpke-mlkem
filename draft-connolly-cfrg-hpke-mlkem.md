@@ -64,8 +64,9 @@ informative:
 
 --- abstract
 
-This memo defines the ML-KEM-based ciphersuites for HPKE (RFC9180). ML-KEM is believed to be secure
-even against adversaries who possess a quantum computer.
+This memo defines ML-KEM-based ciphersuites for HPKE (RFC9180). ML-KEM is
+believed to be secure even against adversaries who possess a
+cryptographically-relevant et-quantum computer.
 
 --- middle
 
@@ -110,8 +111,7 @@ key is expanded into a variable size based on the parameter set but includes
 the hash of the encapsulation key MUST NOT be used.
 
 We use HKDF-SHA256 and HKDF-SHA512 as the HPKE KDFs and AES-128-GCM and
-AES-256-GCM as the AEADs for ML-KEM-512, ML-KEM-768, and ML-KEM-1024,
-respectively.
+AES-256-GCM as the AEADs for ML-KEM-512, ML-KEM-768, and ML-KEM-1024.
 
 ## AuthEncap and AuthDecap
 
@@ -120,9 +120,9 @@ or AuthDecap(), see {{S-notauth}}.
 
 # Security Considerations
 
-HPKE's IND-CCA2 security relies upon the IND-CCA and IND-CCA2 security
-of the underlying KEM and AEAD schemes, respectively. ML-KEM is believed
-to be IND-CCA secure via multiple analyses.
+HPKE's IND-CCA2 security relies upon the IND-CCA and IND-CCA2 security of the
+underlying KEM and AEAD schemes, respectively. ML-KEM is believed to be
+IND-CCA secure via multiple analyses.
 
 The HPKE key schedule is independent of the encapsulated KEM shared secret
 ciphertext of the ciphersuite KEM, and dependent on the shared secret
@@ -134,11 +134,11 @@ as LEAK-BIND-K-PK and LEAK-BIND-K-CT secure as result of the inclusion of the
 serialized DH public keys in the DHKEM KDF; however it expects pre-validated
 keys and never explicitly rejects, making it implicitly-rejecting KEM.
 
-ML-KEM, unlike DHKEM, is also an implicitly-rejecting instantiation of
-the Fujisaki-Okamoto transform, meaning the ML-KEM output shared secret
-may be computed differently in case of decryption failure, that reults
-in different binding properties, such as the lack of X-BIND-CT-PK and
-X-BIND-CT-K completely.
+ML-KEM, unlike DHKEM, is also an implicitly-rejecting instantiation of the
+Fujisaki-Okamoto transform, meaning the ML-KEM output shared secret may be
+computed differently in case of decryption failure, that reults in different
+binding properties, such as the lack of X-BIND-CT-PK and X-BIND-CT-K
+completely.
 
 The DHKEM construction in HPKE can provide MAL-BIND-K-PK and MAL-BIND-K-CT
 security (the shared secret 'binds' or uniquely determines the encapsulation
@@ -163,7 +163,32 @@ This document requests/registers two new entries to the "HPKE KEM
 Identifiers" registry.
 
  Value:
- : 0x0070 (please)
+ : 0x0512 (please)
+
+ KEM:
+ : ML-KEM-512
+
+ Nsecret:
+ : 32
+
+ Nenc:
+ : 768
+
+ Npk:
+ : 800
+
+ Nsk:
+ : 1632
+
+ Auth:
+ : no
+
+ Reference:
+ : This document
+
+
+ Value:
+ : 0x0768 (please)
 
  KEM:
  : ML-KEM-768
@@ -188,7 +213,7 @@ Identifiers" registry.
 
 
  Value:
- : 0x0080 (please)
+ : 0x1024 (please)
 
  KEM:
  : ML-KEM-1024
