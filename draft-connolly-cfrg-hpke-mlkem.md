@@ -100,10 +100,6 @@ properties for ML-KEM than the expanded format that protect against
 re-encapsulation attacks and bring the usage of ML-KEM in practice closer to
 the generic DHKEM binding properties as defined in {{RFC9180}}.
 
-We construct 'wrapper' KEMs based on ML-KEM to bind the KEM shared secret to
-the KEM ciphertext, such that the final KEM has similar binding security
-properties as the original DHKEM which HPKE was designed around.
-
 The encapsulation and decapsulation keys are computed, serialized, and
 deserialized the same as in {{FIPS203}} where the decapsulation keys MUST be
 in the 64-byte `(d, z)` format. The 'expanded' format where the decapsulation
@@ -131,26 +127,24 @@ ciphertext, we wouldn't have to worry about the binding properties of the
 ciphersuite KEM's X-BIND-K-CT properties. These computational binding
 properties for KEMs were formalized in {{CDM23}}. {{CDM23}} describes DHKEM
 as LEAK-BIND-K-PK and LEAK-BIND-K-CT secure as result of the inclusion of the
-serialized DH public keys in the DHKEM KDF; however it expects pre-validated
-keys and never explicitly rejects, making it implicitly-rejecting KEM.
+serialized DH public keys in the DHKEM KDF.
 
-ML-KEM, unlike DHKEM, is also an implicitly-rejecting instantiation of the
-Fujisaki-Okamoto transform, meaning the ML-KEM output shared secret may be
-computed differently in case of decryption failure, that reults in different
-binding properties, such as the lack of X-BIND-CT-PK and X-BIND-CT-K
-completely.
+ML-KEM is also an implicitly-rejecting instantiation of the Fujisaki-Okamoto
+transform, meaning the ML-KEM-produced shared secret may be computed
+differently in case of decryption failure, that reults in different binding
+properties, such as the lack of X-BIND-CT-PK and X-BIND-CT-K completely.
 
 The DHKEM construction in HPKE can provide MAL-BIND-K-PK and MAL-BIND-K-CT
 security (the shared secret 'binds' or uniquely determines the encapsulation
-key and the encapsualted shared secret ciphertext), where the adversary is
+key and the encapsulated shared secret ciphertext, where the adversary is
 able to create the key pairs any way they like in addition to the key
-generation. ML-KEM as specified with the seed key format provides
-MAL-BIND-K-CT security and LEAK-BIND-K-PK security
-{{KEMMY24}}. LEAK-BIND-K-PK security is resiliant where the involved key
-pairs are output by the key generation algorithm of the KEM and then leaked
-to the adversary. MAL-BIND-K-CT security strongly binds the shared secret and
-the ciphertext even when an adversary can manipulate key material like the
-decapsulation key.
+generation) depending on the details of the elliptic curves used. ML-KEM as
+specified in {{FIPS203}} with the seed key format provides MAL-BIND-K-CT
+security and LEAK-BIND-K-PK security {{KEMMY24}}. LEAK-BIND-K-PK security is
+resiliant where the involved key pairs are output by the key generation
+algorithm of the KEM and then leaked to the adversary. MAL-BIND-K-CT security
+strongly binds the shared secret and the ciphertext even when an adversary
+can manipulate key material like the decapsulation key.
 
 ML-KEM nearly matches the binding properties of HPKE's default KEM generic
 construction DHKEM in being MAL-BIND-K-CT and LEAK-BIND-K-PK, and in fact
