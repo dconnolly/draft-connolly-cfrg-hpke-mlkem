@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-08T00:22:36.367196+00:00",
+  "timestamp": "2024-10-10T00:22:38.448032+00:00",
   "repo": "dconnolly/draft-connolly-cfrg-hpke-mlkem",
   "labels": [
     {
@@ -55,31 +55,39 @@
       "id": "I_kwDOLLka3c6BX61i",
       "title": "Cite RFC 9180",
       "url": "https://github.com/dconnolly/draft-connolly-cfrg-hpke-mlkem/issues/1",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "martinthomson",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "This is in the references, but it is not referred to by the body text.",
       "createdAt": "2024-03-06T03:03:36Z",
-      "updatedAt": "2024-03-06T03:03:36Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2024-10-09T16:22:23Z",
+      "closedAt": "2024-10-09T16:22:23Z",
+      "comments": [
+        {
+          "author": "dconnolly",
+          "authorAssociation": "OWNER",
+          "body": "Done in -01",
+          "createdAt": "2024-10-09T16:22:23Z",
+          "updatedAt": "2024-10-09T16:22:23Z"
+        }
+      ]
     },
     {
       "number": 2,
       "id": "I_kwDOLLka3c6BX69V",
       "title": "Fix links in the header",
       "url": "https://github.com/dconnolly/draft-connolly-cfrg-hpke-mlkem/issues/2",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "martinthomson",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "I ended up opening an issue in the wrong repo because the links point to your xwing draft.",
       "createdAt": "2024-03-06T03:04:13Z",
-      "updatedAt": "2024-03-06T03:04:13Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-09T16:24:04Z",
+      "closedAt": "2024-10-09T16:24:04Z",
       "comments": []
     }
   ],
