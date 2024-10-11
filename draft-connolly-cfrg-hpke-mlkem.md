@@ -72,7 +72,7 @@ cryptographically-relevant quantum computer.
 
 # Introduction {#intro}
 
-## Motivation {#motiv}
+## Motivation {#motivation}
 
 The final draft for ML-KEM is expected in 2024. For parties that must move to
 exclusively post-quantum algorithms, having a pure PQ choice for public-key
@@ -109,49 +109,50 @@ the hash of the encapsulation key MUST NOT be used.
 We use HKDF-SHA256 and HKDF-SHA512 as the HPKE KDFs and AES-128-GCM and
 AES-256-GCM as the AEADs for ML-KEM-512, ML-KEM-768, and ML-KEM-1024.
 
-## AuthEncap and AuthDecap
+## AuthEncap and AuthDecap {#S-auth}
 
 HPKE-ML-KEM is not an authenticated KEM and does not support AuthEncap() or
 AuthDecap(), see {{S-notauth}}.
 
-# Security Considerations
+# Security Considerations {#security-considerations}
 
 HPKE's IND-CCA2 security relies upon the IND-CCA and IND-CCA2 security of the
 underlying KEM and AEAD schemes, respectively. ML-KEM is believed to be
 IND-CCA secure via multiple analyses.
 
 The HPKE key schedule is independent of the encapsulated KEM shared secret
-ciphertext of the ciphersuite KEM, and dependent on the shared secret
-produced by the KEM. If HPKE had committed to the encapsulated shared secret
-ciphertext, we wouldn't have to worry about the binding properties of the
-ciphersuite KEM's X-BIND-K-CT properties. These computational binding
-properties for KEMs were formalized in {{CDM23}}. {{CDM23}} describes DHKEM
-as LEAK-BIND-K-PK and LEAK-BIND-K-CT secure as result of the inclusion of the
-serialized DH public keys in the DHKEM KDF.
+ciphertext and public key of the ciphersuite KEM, and dependent on the shared
+secret produced by the KEM. If HPKE had committed to the encapsulated shared
+secret ciphertext and public key, we wouldn't have to worry about the binding
+properties of the ciphersuite KEM's X-BIND-K-CT and X-BIND-K-PK
+properties. These computational binding properties for KEMs were formalized
+in {{CDM23}}. {{CDM23}} describes DHKEM as MAL-BIND-K-PK and MAL-BIND-K-CT
+secure as result of the inclusion of the serialized DH public keys (the KEM's
+PK and CT) in the DHKEM KDF. MAL-BIND-K-PK and MAL-BIND-K-CT security ensures
+that the shared secret 'binds' or uniquely determines the encapsulation key
+and the encapsulated shared secret ciphertext, where the adversary is able to
+create or modify the key pairs any way they like or has access to
+honestly-generated leaked key material.
 
-ML-KEM is also an implicitly-rejecting instantiation of the Fujisaki-Okamoto
-transform, meaning the ML-KEM-produced shared secret may be computed
-differently in case of decryption failure, that reults in different binding
-properties, such as the lack of X-BIND-CT-PK and X-BIND-CT-K completely.
-
-The DHKEM construction in HPKE can provide MAL-BIND-K-PK and MAL-BIND-K-CT
-security (the shared secret 'binds' or uniquely determines the encapsulation
-key and the encapsulated shared secret ciphertext, where the adversary is
-able to create the key pairs any way they like in addition to the key
-generation) depending on the details of the elliptic curves used. ML-KEM as
-specified in {{FIPS203}} with the seed key format provides MAL-BIND-K-CT
-security and LEAK-BIND-K-PK security {{KEMMY24}}. LEAK-BIND-K-PK security is
-resiliant where the involved key pairs are output by the key generation
-algorithm of the KEM and then leaked to the adversary. MAL-BIND-K-CT security
-strongly binds the shared secret and the ciphertext even when an adversary
-can manipulate key material like the decapsulation key.
+ML-KEM as specified in {{FIPS203}} with the seed key format provides
+MAL-BIND-K-CT security and LEAK-BIND-K-PK security
+{{KEMMY24}}. LEAK-BIND-K-PK security is resiliant where the involved key
+pairs are output by the honest key generation algorithm of the KEM and then
+leaked to the adversary. MAL-BIND-K-CT security strongly binds the shared
+secret and the ciphertext even when an adversary can manipulate key material
+like the decapsulation key.
 
 ML-KEM nearly matches the binding properties of HPKE's default KEM generic
-construction DHKEM in being MAL-BIND-K-CT and LEAK-BIND-K-PK, and in fact
-exceeds the bar set by DHKEM in being MAL-BIND-K-CT secure when using the
-seed key format.
+construction DHKEM in being MAL-BIND-K-CT and LEAK-BIND-K-PK, only using the
+seed key format, the ML-KEM ciphertext is strongly bound by the shared
+secret. The encapsulation key is more weakly bound, and protocols integrating
+HPKE using ML-KEM even with the seed key format should evaluate whether they
+need to strongly bind to the PK elsewhere (outside of ML-KEM or HPKE) to be
+resilient against a MAL adversary, or to achieve other tight binding to the
+encapsulation key PK to achieve properties like implicit authentication or
+session independence.
 
-# IANA Considerations
+# IANA Considerations {#iana}
 
 This document requests/registers two new entries to the "HPKE KEM
 Identifiers" registry.
