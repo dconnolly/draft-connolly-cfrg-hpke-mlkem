@@ -107,18 +107,17 @@ MAL-BIND-K-CT, and LEAK-BIND-K-PK.
 
 # Usage {#usage}
 
-{{FIPS203}} supports two different key formats. This document only
-supports the 64-byte seed `(d, z)`. This format supports stronger binding
-properties for ML-KEM than the expanded format. The 64-byte seed format
-protects against re-encapsulation attacks. This format provides properties
-closer to the generic DHKEM binding properties defined in Section 4.1 of
-{{RFC9180}}.
+{{FIPS203}} supports two different key formats. This document only supports
+the 64-byte seed `(d, z)`. This format supports stronger binding properties
+for ML-KEM than the expanded format. The 64-byte seed format protects against
+re-encapsulation attacks. This format provides properties closer to the
+generic DHKEM binding properties defined in Section 4.1 of {{RFC9180}}.
 
 The encapsulation and decapsulation keys are computed, serialized, and
-deserialized as described in {{FIPS203}} where the decapsulation keys MUST
-be in the 64-byte `(d, z)` format. The 'expanded' format where the
-decapsulation key is expanded into a variable size based on the parameter
-set but includes the hash of the encapsulation key is not used.
+deserialized as described in {{FIPS203}} where the decapsulation keys MUST be
+in the 64-byte `(d, z)` format. The 'expanded' format where the decapsulation
+key is expanded into a variable size based on the parameter set but includes
+the hash of the encapsulation key is not used.
 
 
 **TODO**: Describe the mapping between `GenerateKeyPair`, `DeriveKeyPair`,
@@ -143,27 +142,27 @@ secret ciphertext and public key, we wouldn't have to worry about the binding
 properties of the ciphersuite KEM's X-BIND-K-CT and X-BIND-K-PK
 properties. These computational binding properties for KEMs were formalized
 in {{CDM23}}. {{CDM23}} describes DHKEM as MAL-BIND-K-PK and MAL-BIND-K-CT
-secure as a result of the inclusion of the serialized DH public keys (the KEM's
-PK and CT) in the DHKEM Key Derivation Function (KDF). MAL-BIND-K-PK and
-MAL-BIND-K-CT security ensures that the shared secret K 'binds' (is
-uniquely determined by) the encapsulation key and/or the ciphertext,
-even when the adversary is able to create or modify the key pairs or
-has access to honestly-generated leaked key material.
+secure as a result of the inclusion of the serialized DH public keys (the
+KEM's PK and CT) in the DHKEM Key Derivation Function (KDF). MAL-BIND-K-PK
+and MAL-BIND-K-CT security ensures that the shared secret K 'binds' (is
+uniquely determined by) the encapsulation key and/or the ciphertext, even
+when the adversary is able to create or modify the key pairs or has access to
+honestly-generated leaked key material.
 
 ML-KEM as specified in {{FIPS203}} with the seed key format provides
 MAL-BIND-K-CT security and LEAK-BIND-K-PK security {{KEMMY24}}.
-LEAK-BIND-K-PK security is resiliant where the involved key
-pairs are output by the honest key generation algorithm of the KEM and then
-leaked to the adversary. MAL-BIND-K-CT security strongly binds the shared
-secret and the ciphertext even when an adversary can manipulate key material
-like the decapsulation key.
+LEAK-BIND-K-PK security is resiliant where the involved key pairs are output
+by the honest key generation algorithm of the KEM and then leaked to the
+adversary. MAL-BIND-K-CT security strongly binds the shared secret and the
+ciphertext even when an adversary can manipulate key material like the
+decapsulation key.
 
-ML-KEM using the seed key format (providing MAL-BIND-K-CT and
-LEAK-BIND-K-PK) nearly matches the binding properties of DHKEM (the
-default HPKE KEM construction). The ML-KEM ciphertext is strongly bound by
-the shared secret. The encapsulation key is more weakly bound, and protocols
-integrating HPKE using ML-KEM even with the seed key format should evaluate
-whether they need to strongly bind to the PK elsewhere (outside of ML-KEM or HPKE) to be
+ML-KEM using the seed key format (providing MAL-BIND-K-CT and LEAK-BIND-K-PK)
+nearly matches the binding properties of DHKEM (the default HPKE KEM
+construction). The ML-KEM ciphertext is strongly bound by the shared
+secret. The encapsulation key is more weakly bound, and protocols integrating
+HPKE using ML-KEM even with the seed key format should evaluate whether they
+need to strongly bind to the PK elsewhere (outside of ML-KEM or HPKE) to be
 resilient against a MAL adversary, or to achieve other tight binding to the
 encapsulation key PK to achieve properties like implicit authentication or
 session independence.
@@ -256,8 +255,8 @@ The authors would like to thank Cas Cremers for their input.
 
 # Change log
 
-> **RFC Editor's Note:** Please remove this section prior to publication
-> of a final version of this document.
+> **RFC Editor's Note:** Please remove this section prior to publication of a
+> final version of this document.
 
 TODO
 
