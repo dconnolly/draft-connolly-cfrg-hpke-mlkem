@@ -65,7 +65,7 @@ informative:
 --- abstract
 
 This document defines Module-Lattice-Based Key-Encapsulation Mechanism
-(ML-KEM) KEM options for Hybrid Public-Key Encryption (HPKE). ML-KEM is
+(ML-KEM) as defined in {{FIPS203}} KEM options for Hybrid Public-Key Encryption (HPKE). ML-KEM is
 believed to be secure even against adversaries who possess a
 cryptographically-relevant quantum computer.
 
