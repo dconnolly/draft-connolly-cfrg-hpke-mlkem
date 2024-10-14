@@ -100,7 +100,7 @@ authenticated modes.
 `Nsecret`, `Nenc`, `Npk`, and `Nsk` are defined in Section 4 of {{RFC9180}}.
 
 When used in the Security Consideration section, `PK` refers to public key
-and `CT` refers to cipher text.
+and `CT` refers to ciphertext as modeled in {{CDM23}}.
 
 **TODO**: explain or reference IND-CCA, IND-CCA2, MAL-BIND-K-PK,
 MAL-BIND-K-CT, and LEAK-BIND-K-PK.
