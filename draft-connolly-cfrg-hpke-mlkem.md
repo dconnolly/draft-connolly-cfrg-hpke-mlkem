@@ -64,7 +64,8 @@ informative:
 
 --- abstract
 
-This memo defines ML-KEM-based ciphersuites for HPKE ({{RFC9180}}). ML-KEM is
+This document defines Module-Lattice-Based Key-Encapsulation Mechanism
+(ML-KEM) KEM options for Hybrid Public-Key Encryption (HPKE). ML-KEM is
 believed to be secure even against adversaries who possess a
 cryptographically-relevant quantum computer.
 
@@ -74,40 +75,55 @@ cryptographically-relevant quantum computer.
 
 ## Motivation {#motivation}
 
-The final draft for ML-KEM is expected in 2024. For parties that must move to
-exclusively post-quantum algorithms, having a pure PQ choice for public-key
-hybrid encryption is desireable. HPKE is the leading modern protocol for
-public-key encryption, and ML-KEM as a post-quantum IND-CCA2-secure KEM fits
-nicely into HPKE's design. Supporting multiple security levels for ML-KEM
-allows a spectrum of use cases including settings where NIST PQ security
-category 5 is required.
+ML-KEM {{FIPS203}} is a Key-Encapsulation Mechanism (KEM) which is believed
+to be secure against both classical and quantum cryptographic attacks. For
+parties that must move to exclusively post-quantum algorithms, this document
+defines pure post-quantum algorithms for the Hybrid Public-Key Encryption
+(HPKE) protocol {{RFC9180}}. ML-KEM as a post-quantum IND-CCA2-secure KEM
+fits nicely into HPKE's design. Supporting multiple security levels for
+ML-KEM allows a spectrum of use cases including settings where the (United
+States) National Institute of Standards (NIST) security category 5 is
+required.
 
 ## Not an authenticated KEM {#S-notauth}
 
 ML-KEM is a plain KEM that does not support the static-static key exchange
-that allows HPKE based on Diffie-Hellman based KEMs its (optional)
+that allows HPKE based on Diffie-Hellman (DH) based KEMs and their (optional)
 authenticated modes.
 
 # Conventions and Definitions {#conventions}
 
 {::boilerplate bcp14-tagged}
 
+`GenerateKeyPair`, `DeriveKeyPair`, `SerializePublicKey`,
+`DeserializePublicKey`, `Encap`, `Decap`, `AuthEncap`, `AuthDecap`,
+`Nsecret`, `Nenc`, `Npk`, and `Nsk` are defined in Section 4 of {{RFC9180}}.
+
+When used in the Security Consideration section, `PK` refers to public key
+and `CT` refers to ciphertext as modeled in {{CDM23}}.
+
+**TODO**: explain or reference IND-CCA, IND-CCA2, MAL-BIND-K-PK,
+MAL-BIND-K-CT, and LEAK-BIND-K-PK.
+
 # Usage {#usage}
 
-{{FIPS203}} supports two different key formats, but this document only
+{{FIPS203}} supports two different key formats. This document only
 supports the 64-byte seed `(d, z)`. This format supports stronger binding
-properties for ML-KEM than the expanded format that protect against
-re-encapsulation attacks and bring the usage of ML-KEM in practice closer to
-the generic DHKEM binding properties as defined in {{RFC9180}}.
+properties for ML-KEM than the expanded format. The 64-byte seed format
+protects against re-encapsulation attacks. This format provides properties
+closer to the generic DHKEM binding properties defined in Section 4.1 of
+{{RFC9180}}.
 
 The encapsulation and decapsulation keys are computed, serialized, and
-deserialized the same as in {{FIPS203}} where the decapsulation keys MUST be
-in the 64-byte `(d, z)` format. The 'expanded' format where the decapsulation
-key is expanded into a variable size based on the parameter set but includes
-the hash of the encapsulation key MUST NOT be used.
+deserialized as described in {{FIPS203}} where the decapsulation keys MUST
+be in the 64-byte `(d, z)` format. The 'expanded' format where the
+decapsulation key is expanded into a variable size based on the parameter
+set but includes the hash of the encapsulation key is not used.
 
-We use HKDF-SHA256 and HKDF-SHA512 as the HPKE KDFs and AES-128-GCM and
-AES-256-GCM as the AEADs for ML-KEM-512, ML-KEM-768, and ML-KEM-1024.
+
+**TODO**: Describe the mapping between `GenerateKeyPair`, `DeriveKeyPair`,
+`SerializePublicKey`, `DeserializePublicKey`, `Encap`, and `Decap` in HPKE
+and the functions defined in {{FIPS203}}.
 
 ## AuthEncap and AuthDecap {#S-auth}
 
@@ -127,27 +143,27 @@ secret ciphertext and public key, we wouldn't have to worry about the binding
 properties of the ciphersuite KEM's X-BIND-K-CT and X-BIND-K-PK
 properties. These computational binding properties for KEMs were formalized
 in {{CDM23}}. {{CDM23}} describes DHKEM as MAL-BIND-K-PK and MAL-BIND-K-CT
-secure as result of the inclusion of the serialized DH public keys (the KEM's
-PK and CT) in the DHKEM KDF. MAL-BIND-K-PK and MAL-BIND-K-CT security ensures
-that the shared secret 'binds' or uniquely determines the encapsulation key
-and the encapsulated shared secret ciphertext, where the adversary is able to
-create or modify the key pairs any way they like or has access to
-honestly-generated leaked key material.
+secure as a result of the inclusion of the serialized DH public keys (the KEM's
+PK and CT) in the DHKEM Key Derivation Function (KDF). MAL-BIND-K-PK and
+MAL-BIND-K-CT security ensures that the shared secret K 'binds' (is
+uniquely determined by) the encapsulation key and/or the ciphertext,
+even when the adversary is able to create or modify the key pairs or
+has access to honestly-generated leaked key material.
 
 ML-KEM as specified in {{FIPS203}} with the seed key format provides
-MAL-BIND-K-CT security and LEAK-BIND-K-PK security
-{{KEMMY24}}. LEAK-BIND-K-PK security is resiliant where the involved key
+MAL-BIND-K-CT security and LEAK-BIND-K-PK security {{KEMMY24}}.
+LEAK-BIND-K-PK security is resiliant where the involved key
 pairs are output by the honest key generation algorithm of the KEM and then
 leaked to the adversary. MAL-BIND-K-CT security strongly binds the shared
 secret and the ciphertext even when an adversary can manipulate key material
 like the decapsulation key.
 
-ML-KEM nearly matches the binding properties of HPKE's default KEM generic
-construction DHKEM in being MAL-BIND-K-CT and LEAK-BIND-K-PK, only using the
-seed key format, the ML-KEM ciphertext is strongly bound by the shared
-secret. The encapsulation key is more weakly bound, and protocols integrating
-HPKE using ML-KEM even with the seed key format should evaluate whether they
-need to strongly bind to the PK elsewhere (outside of ML-KEM or HPKE) to be
+ML-KEM using the seed key format (providing MAL-BIND-K-CT and
+LEAK-BIND-K-PK) nearly matches the binding properties of DHKEM (the
+default HPKE KEM construction). The ML-KEM ciphertext is strongly bound by
+the shared secret. The encapsulation key is more weakly bound, and protocols
+integrating HPKE using ML-KEM even with the seed key format should evaluate
+whether they need to strongly bind to the PK elsewhere (outside of ML-KEM or HPKE) to be
 resilient against a MAL adversary, or to achieve other tight binding to the
 encapsulation key PK to achieve properties like implicit authentication or
 session independence.
@@ -158,7 +174,7 @@ This document requests/registers two new entries to the "HPKE KEM
 Identifiers" registry.
 
  Value:
- : 0x0512 (please)
+ : 0x0040 (please)
 
  KEM:
  : ML-KEM-512
@@ -183,7 +199,7 @@ Identifiers" registry.
 
 
  Value:
- : 0x0768 (please)
+ : 0x0041 (please)
 
  KEM:
  : ML-KEM-768
@@ -208,7 +224,7 @@ Identifiers" registry.
 
 
  Value:
- : 0x1024 (please)
+ : 0x0042 (please)
 
  KEM:
  : ML-KEM-1024
@@ -259,14 +275,14 @@ provide an ier entry instead.  The value of ier is the randomness used to
 encapsulate, so `ier[0:32]` is the seed that is fed to H in the first step of
 ML-KEM encapsulation in {{FIPS203}}.
 
-## ML-KEM-512, HKDF-SHA256, AES-128-GCM
+## ML-KEM-512
 
 TODO
 
-## ML-KEM-768, HKDF-SHA256, AES-128-GCM
+## ML-KEM-768
 
 TODO
 
-## ML-KEM-1024, HKDF-SHA512, AES-256-GCM
+## ML-KEM-1024
 
 TODO
