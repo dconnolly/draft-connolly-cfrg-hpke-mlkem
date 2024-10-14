@@ -145,9 +145,10 @@ properties. These computational binding properties for KEMs were formalized
 in {{CDM23}}. {{CDM23}} describes DHKEM as MAL-BIND-K-PK and MAL-BIND-K-CT
 secure as a result of the inclusion of the serialized DH public keys (the KEM's
 PK and CT) in the DHKEM Key Derivation Function (KDF). MAL-BIND-K-PK and
-MAL-BIND-K-CT security ensures that the shared secret K 'binds' (is uniquely determined by) the encapsulation key and/or the ciphertext, even when the
-adversary is able to create or modify the key pairs or has access to
-honestly-generated leaked key material.
+MAL-BIND-K-CT security ensures that the shared secret K 'binds' (is
+uniquely determined by) the encapsulation key and/or the ciphertext,
+even when the adversary is able to create or modify the key pairs or
+has access to honestly-generated leaked key material.
 
 ML-KEM as specified in {{FIPS203}} with the seed key format provides
 MAL-BIND-K-CT security and LEAK-BIND-K-PK security {{KEMMY24}}.
