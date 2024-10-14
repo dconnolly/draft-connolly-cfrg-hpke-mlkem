@@ -1259,17 +1259,16 @@ MAL-BIND-K-CT, and LEAK-BIND-K-PK.<a href="#section-2-4" class="pilcrow">¶</a><
       <h2 id="name-usage">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-usage" class="section-name selfRef">Usage</a>
       </h2>
-<p id="section-3-1"><span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span> supports two different key formats. This document only
-supports the 64-byte seed <code>(d, z)</code>. This format supports stronger binding
-properties for ML-KEM than the expanded format. The 64-byte seed format
-protects against re-encapsulation attacks. This format provides properties
-closer to the generic DHKEM binding properties defined in Section 4.1 of
-<span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1"><span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span> supports two different key formats. This document only supports
+the 64-byte seed <code>(d, z)</code>. This format supports stronger binding properties
+for ML-KEM than the expanded format. The 64-byte seed format protects against
+re-encapsulation attacks. This format provides properties closer to the
+generic DHKEM binding properties defined in Section 4.1 of <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">The encapsulation and decapsulation keys are computed, serialized, and
-deserialized as described in <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span> where the decapsulation keys <span class="bcp14">MUST</span>
-be in the 64-byte <code>(d, z)</code> format. The 'expanded' format where the
-decapsulation key is expanded into a variable size based on the parameter
-set but includes the hash of the encapsulation key is not used.<a href="#section-3-2" class="pilcrow">¶</a></p>
+deserialized as described in <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span> where the decapsulation keys <span class="bcp14">MUST</span> be
+in the 64-byte <code>(d, z)</code> format. The 'expanded' format where the decapsulation
+key is expanded into a variable size based on the parameter set but includes
+the hash of the encapsulation key is not used.<a href="#section-3-2" class="pilcrow">¶</a></p>
 <p id="section-3-3"><strong>TODO</strong>: Describe the mapping between <code>GenerateKeyPair</code>, <code>DeriveKeyPair</code>,
 <code>SerializePublicKey</code>, <code>DeserializePublicKey</code>, <code>Encap</code>, and <code>Decap</code> in HPKE
 and the functions defined in <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>.<a href="#section-3-3" class="pilcrow">¶</a></p>
@@ -1299,25 +1298,25 @@ secret ciphertext and public key, we wouldn't have to worry about the binding
 properties of the ciphersuite KEM's X-BIND-K-CT and X-BIND-K-PK
 properties. These computational binding properties for KEMs were formalized
 in <span>[<a href="#CDM23" class="cite xref">CDM23</a>]</span>. <span>[<a href="#CDM23" class="cite xref">CDM23</a>]</span> describes DHKEM as MAL-BIND-K-PK and MAL-BIND-K-CT
-secure as a result of the inclusion of the serialized DH public keys (the KEM's
-PK and CT) in the DHKEM Key Derivation Function (KDF). MAL-BIND-K-PK and
-MAL-BIND-K-CT security ensures that the shared secret K 'binds' (is
-uniquely determined by) the encapsulation key and/or the ciphertext,
-even when the adversary is able to create or modify the key pairs or
-has access to honestly-generated leaked key material.<a href="#section-4-2" class="pilcrow">¶</a></p>
+secure as a result of the inclusion of the serialized DH public keys (the
+KEM's PK and CT) in the DHKEM Key Derivation Function (KDF). MAL-BIND-K-PK
+and MAL-BIND-K-CT security ensures that the shared secret K 'binds' (is
+uniquely determined by) the encapsulation key and/or the ciphertext, even
+when the adversary is able to create or modify the key pairs or has access to
+honestly-generated leaked key material.<a href="#section-4-2" class="pilcrow">¶</a></p>
 <p id="section-4-3">ML-KEM as specified in <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span> with the seed key format provides
 MAL-BIND-K-CT security and LEAK-BIND-K-PK security <span>[<a href="#KEMMY24" class="cite xref">KEMMY24</a>]</span>.
-LEAK-BIND-K-PK security is resiliant where the involved key
-pairs are output by the honest key generation algorithm of the KEM and then
-leaked to the adversary. MAL-BIND-K-CT security strongly binds the shared
-secret and the ciphertext even when an adversary can manipulate key material
-like the decapsulation key.<a href="#section-4-3" class="pilcrow">¶</a></p>
-<p id="section-4-4">ML-KEM using the seed key format (providing MAL-BIND-K-CT and
-LEAK-BIND-K-PK) nearly matches the binding properties of DHKEM (the
-default HPKE KEM construction). The ML-KEM ciphertext is strongly bound by
-the shared secret. The encapsulation key is more weakly bound, and protocols
-integrating HPKE using ML-KEM even with the seed key format should evaluate
-whether they need to strongly bind to the PK elsewhere (outside of ML-KEM or HPKE) to be
+LEAK-BIND-K-PK security is resiliant where the involved key pairs are output
+by the honest key generation algorithm of the KEM and then leaked to the
+adversary. MAL-BIND-K-CT security strongly binds the shared secret and the
+ciphertext even when an adversary can manipulate key material like the
+decapsulation key.<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-4">ML-KEM using the seed key format (providing MAL-BIND-K-CT and LEAK-BIND-K-PK)
+nearly matches the binding properties of DHKEM (the default HPKE KEM
+construction). The ML-KEM ciphertext is strongly bound by the shared
+secret. The encapsulation key is more weakly bound, and protocols integrating
+HPKE using ML-KEM even with the seed key format should evaluate whether they
+need to strongly bind to the PK elsewhere (outside of ML-KEM or HPKE) to be
 resilient against a MAL adversary, or to achieve other tight binding to the
 encapsulation key PK to achieve properties like implicit authentication or
 session independence.<a href="#section-4-4" class="pilcrow">¶</a></p>
@@ -1518,8 +1517,8 @@ Identifiers" registry.<a href="#section-5-1" class="pilcrow">¶</a></p>
       </h2>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="appendix-B-1.1">
-          <p id="appendix-B-1.1.1"><strong>RFC Editor's Note:</strong> Please remove this section prior to publication
-of a final version of this document.<a href="#appendix-B-1.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-1.1.1"><strong>RFC Editor's Note:</strong> Please remove this section prior to publication of a
+final version of this document.<a href="#appendix-B-1.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="appendix-B-2">TODO<a href="#appendix-B-2" class="pilcrow">¶</a></p>
