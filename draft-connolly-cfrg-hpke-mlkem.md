@@ -120,8 +120,6 @@ be in the 64-byte `(d, z)` format. The 'expanded' format where the
 decapsulation key is expanded into a variable size based on the parameter
 set but includes the hash of the encapsulation key is not used.
 
-Unlike DHKEM, ML-KEM does not rely on an external Key-Derivation Function
-(KDF).
 
 **TODO**: Describe the mapping between `GenerateKeyPair`, `DeriveKeyPair`,
 `SerializePublicKey`, `DeserializePublicKey`, `Encap`, and `Decap` in HPKE
