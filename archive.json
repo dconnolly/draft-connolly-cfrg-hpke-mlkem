@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-13T00:26:05.412770+00:00",
+  "timestamp": "2024-10-15T00:23:14.232005+00:00",
   "repo": "dconnolly/draft-connolly-cfrg-hpke-mlkem",
   "labels": [
     {
@@ -88,6 +88,38 @@
       "createdAt": "2024-03-06T03:04:13Z",
       "updatedAt": "2024-10-09T16:24:04Z",
       "closedAt": "2024-10-09T16:24:04Z",
+      "comments": []
+    },
+    {
+      "number": 7,
+      "id": "I_kwDOLLka3c6aMjMT",
+      "title": "fill  out mapping functions from FIPS 203 to RFC 9180 ",
+      "url": "https://github.com/dconnolly/draft-connolly-cfrg-hpke-mlkem/issues/7",
+      "state": "OPEN",
+      "author": "dconnolly",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Describe the mapping between GenerateKeyPair, DeriveKeyPair, SerializePublicKey, DeserializePublicKey, Encap, and Decap in HPKE and the functions defined in {{FIPS203}}.",
+      "createdAt": "2024-10-14T20:29:03Z",
+      "updatedAt": "2024-10-14T20:29:03Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 8,
+      "id": "I_kwDOLLka3c6aMjcZ",
+      "title": "Fill out security property explanations/references (more?)",
+      "url": "https://github.com/dconnolly/draft-connolly-cfrg-hpke-mlkem/issues/8",
+      "state": "OPEN",
+      "author": "dconnolly",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "explain or reference IND-CCA, IND-CCA2, MAL-BIND-K-PK, MAL-BIND-K-CT, and LEAK-BIND-K-PK.",
+      "createdAt": "2024-10-14T20:29:25Z",
+      "updatedAt": "2024-10-14T20:29:38Z",
+      "closedAt": null,
       "comments": []
     }
   ],
@@ -214,6 +246,188 @@
           "body": "",
           "createdAt": "2024-03-28T19:34:07Z",
           "updatedAt": "2024-03-28T19:34:07Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOLLka3c5-dPIq",
+      "title": "Suggestions from Rohan's review",
+      "url": "https://github.com/dconnolly/draft-connolly-cfrg-hpke-mlkem/pull/6",
+      "state": "MERGED",
+      "author": "rohanmahy",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Feel free to have your way with any of these changes.\r\n\r\nA few notes:\r\n- references are not allowed in the Abstract\r\n- all acronyms are supposed to be spelled out in first use\r\n- removed non-KEM related parts of HPKE",
+      "createdAt": "2024-10-13T20:08:38Z",
+      "updatedAt": "2024-10-14T20:27:46Z",
+      "baseRepository": "dconnolly/draft-connolly-cfrg-hpke-mlkem",
+      "baseRefName": "main",
+      "baseRefOid": "2ca0f2afcfe6e01111e1215b9dec22cd5500510a",
+      "headRepository": "rohanmahy/draft-connolly-cfrg-hpke-mlkem",
+      "headRefName": "rohan/editorial",
+      "headRefOid": "4beaf02b15572e8f600d9b0af428297b05627b15",
+      "closedAt": "2024-10-14T20:27:46Z",
+      "mergedAt": "2024-10-14T20:27:46Z",
+      "mergedBy": "dconnolly",
+      "mergeCommit": {
+        "oid": "e814d63f0f5b4057966aa98f304fb76786fdb44c"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLLka3c6NHXQ2",
+          "commit": {
+            "abbreviatedOid": "af3f27b"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-14T20:15:31Z",
+          "updatedAt": "2024-10-14T20:15:32Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\nThis document defines Module-Lattice-Based Key-Encapsulation Mechanism\r\n(ML-KEM) KEM options for Hybrid Public-Key Encryption (HPKE). ML-KEM is\r\n```",
+              "createdAt": "2024-10-14T20:15:31Z",
+              "updatedAt": "2024-10-14T20:15:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLLka3c6NHXbO",
+          "commit": {
+            "abbreviatedOid": "fcaf8ff"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-14T20:16:03Z",
+          "updatedAt": "2024-10-14T20:16:03Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\nThis document defines Module-Lattice-Based Key-Encapsulation Mechanism\r\n(ML-KEM) as defined in {{FIPS203}} KEM options for Hybrid Public-Key Encryption (HPKE). ML-KEM is\r\n```",
+              "createdAt": "2024-10-14T20:16:03Z",
+              "updatedAt": "2024-10-14T20:16:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLLka3c6NHYDg",
+          "commit": {
+            "abbreviatedOid": "d2e8122"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-14T20:17:29Z",
+          "updatedAt": "2024-10-14T20:17:29Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\nThis document defines Module-Lattice-Based Key-Encapsulation Mechanism\r\n(ML-KEM) KEM options for Hybrid Public-Key Encryption (HPKE). ML-KEM is\r\n```",
+              "createdAt": "2024-10-14T20:17:29Z",
+              "updatedAt": "2024-10-14T20:17:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLLka3c6NHZko",
+          "commit": {
+            "abbreviatedOid": "912600c"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-14T20:19:35Z",
+          "updatedAt": "2024-10-14T20:19:35Z",
+          "comments": [
+            {
+              "originalPosition": 47,
+              "body": "```suggestion\r\nWhen used in the Security Consideration section, `PK` refers to public key\r\nand `CT` refers to ciphertext as modeled in {{CDM23}}.\r\n```",
+              "createdAt": "2024-10-14T20:19:35Z",
+              "updatedAt": "2024-10-14T20:19:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLLka3c6NHaxi",
+          "commit": {
+            "abbreviatedOid": "14f17a2"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-14T20:21:14Z",
+          "updatedAt": "2024-10-14T20:21:14Z",
+          "comments": [
+            {
+              "originalPosition": 76,
+              "body": "Removing, most KEMs are more like ML-KEM than like DHKEM\r\n\r\n```suggestion\r\n```",
+              "createdAt": "2024-10-14T20:21:14Z",
+              "updatedAt": "2024-10-14T20:21:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLLka3c6NHdbe",
+          "commit": {
+            "abbreviatedOid": "4207054"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-14T20:24:31Z",
+          "updatedAt": "2024-10-14T20:24:32Z",
+          "comments": [
+            {
+              "originalPosition": 99,
+              "body": "```suggestion\r\nsecure as a result of the inclusion of the serialized DH public keys (the KEM's\r\nPK and CT) in the DHKEM Key Derivation Function (KDF). MAL-BIND-K-PK and\r\nMAL-BIND-K-CT security ensures that the shared secret K 'binds' (is uniquely determined by) the encapsulation key and/or the ciphertext, even when the\r\nadversary is able to create or modify the key pairs or has access to\r\nhonestly-generated leaked key material.\r\n```",
+              "createdAt": "2024-10-14T20:24:32Z",
+              "updatedAt": "2024-10-14T20:24:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLLka3c6NHeAl",
+          "commit": {
+            "abbreviatedOid": "5c41d52"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-14T20:25:19Z",
+          "updatedAt": "2024-10-14T20:25:19Z",
+          "comments": [
+            {
+              "originalPosition": 97,
+              "body": "```suggestion\r\nsecure as a result of the inclusion of the serialized DH public keys (the KEM's\r\nPK and CT) in the DHKEM Key Derivation Function (KDF). MAL-BIND-K-PK and\r\nMAL-BIND-K-CT security ensures that the shared secret K 'binds' (is\r\nuniquely determined by) the encapsulation key and/or the ciphertext,\r\neven when the adversary is able to create or modify the key pairs or\r\nhas access to honestly-generated leaked key material.\r\n```",
+              "createdAt": "2024-10-14T20:25:19Z",
+              "updatedAt": "2024-10-14T20:25:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLLka3c6NHe8W",
+          "commit": {
+            "abbreviatedOid": "4beaf02"
+          },
+          "author": "dconnolly",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-14T20:26:33Z",
+          "updatedAt": "2024-10-14T20:26:33Z",
           "comments": []
         }
       ]
