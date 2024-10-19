@@ -1035,7 +1035,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Connolly</td>
-<td class="center">Expires 17 April 2025</td>
+<td class="center">Expires 22 April 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1048,12 +1048,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-connolly-cfrg-hpke-mlkem-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-10-14" class="published">14 October 2024</time>
+<time datetime="2024-10-19" class="published">19 October 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-04-17">17 April 2025</time></dd>
+<dd class="expires"><time datetime="2025-04-22">22 April 2025</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1106,7 +1106,7 @@ cryptographically-relevant quantum computer.<a href="#section-abstract-1" class=
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 17 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1150,7 +1150,25 @@ cryptographically-relevant quantum computer.<a href="#section-abstract-1" class=
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-usage" class="internal xref">Usage</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
-                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-authencap-and-authdecap" class="internal xref">AuthEncap and AuthDecap</a></p>
+                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-key-generation" class="internal xref">Key generation</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-key-derivation" class="internal xref">Key derivation</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-public-key-serialization" class="internal xref">Public key serialization</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
+                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-public-key-deserialization" class="internal xref">Public key deserialization</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5">
+                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-encapsulation" class="internal xref">Encapsulation</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.6">
+                <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="auto internal xref">3.6</a>.  <a href="#name-decapsulation" class="internal xref">Decapsulation</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.7">
+                <p id="section-toc.1-1.3.2.7.1"><a href="#section-3.7" class="auto internal xref">3.7</a>.  <a href="#name-authencap-and-authdecap" class="internal xref">AuthEncap and AuthDecap</a></p>
 </li>
             </ul>
 </li>
@@ -1245,13 +1263,27 @@ authenticated modes.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
 "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
-<p id="section-2-2"><code>GenerateKeyPair</code>, <code>DeriveKeyPair</code>, <code>SerializePublicKey</code>,
+<p id="section-2-2">The following terms are used throughout this document to describe the
+operations, roles, and behaviors of HPKE:<a href="#section-2-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-2-3.1">
+          <p id="section-2-3.1.1"><code>concat(x0, ..., xN)</code>: returns the concatenation of byte
+strings. <code>concat(0x01, 0x0203, 0x040506) = 0x010203040506</code>.<a href="#section-2-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-2-3.2">
+          <p id="section-2-3.2.1"><code>random(n)</code>: return a pseudorandom byte string of length <code>n</code> bytes produced
+by a cryptographically-secure random number generator, specifically <span class="bcp14">MUST</span> be
+a FIPS-approved random bit generator (RBG) as described in section 3.3 of
+<span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>.<a href="#section-2-3.2.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-2-4"><code>GenerateKeyPair</code>, <code>DeriveKeyPair</code>, <code>SerializePublicKey</code>,
 <code>DeserializePublicKey</code>, <code>Encap</code>, <code>Decap</code>, <code>AuthEncap</code>, <code>AuthDecap</code>,
-<code>Nsecret</code>, <code>Nenc</code>, <code>Npk</code>, and <code>Nsk</code> are defined in Section 4 of <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>.<a href="#section-2-2" class="pilcrow">¶</a></p>
-<p id="section-2-3">When used in the Security Consideration section, <code>PK</code> refers to public key
-and <code>CT</code> refers to ciphertext as modeled in <span>[<a href="#CDM23" class="cite xref">CDM23</a>]</span>.<a href="#section-2-3" class="pilcrow">¶</a></p>
-<p id="section-2-4"><strong>TODO</strong>: explain or reference IND-CCA, IND-CCA2, MAL-BIND-K-PK,
-MAL-BIND-K-CT, and LEAK-BIND-K-PK.<a href="#section-2-4" class="pilcrow">¶</a></p>
+<code>Nsecret</code>, <code>Nenc</code>, <code>Npk</code>, and <code>Nsk</code> are defined in Section 4 of <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span>.<a href="#section-2-4" class="pilcrow">¶</a></p>
+<p id="section-2-5">When used in the Security Consideration section, <code>PK</code> refers to public key
+and <code>CT</code> refers to ciphertext as modeled in <span>[<a href="#CDM23" class="cite xref">CDM23</a>]</span>.<a href="#section-2-5" class="pilcrow">¶</a></p>
+<p id="section-2-6"><strong>TODO</strong>: explain or reference IND-CCA, IND-CCA2, MAL-BIND-K-PK,
+MAL-BIND-K-CT, and LEAK-BIND-K-PK.<a href="#section-2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="usage">
@@ -1259,7 +1291,7 @@ MAL-BIND-K-CT, and LEAK-BIND-K-PK.<a href="#section-2-4" class="pilcrow">¶</a><
       <h2 id="name-usage">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-usage" class="section-name selfRef">Usage</a>
       </h2>
-<p id="section-3-1"><span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span> supports two different key formats. This document only supports
+<p id="section-3-1"><span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span> supports two different key formats -  this document only supports
 the 64-byte seed <code>(d, z)</code>. This format supports stronger binding properties
 for ML-KEM than the expanded format. The 64-byte seed format protects against
 re-encapsulation attacks. This format provides properties closer to the
@@ -1269,16 +1301,102 @@ deserialized as described in <span>[<a href="#FIPS203" class="cite xref">FIPS203
 in the 64-byte <code>(d, z)</code> format. The 'expanded' format where the decapsulation
 key is expanded into a variable size based on the parameter set but includes
 the hash of the encapsulation key is not used.<a href="#section-3-2" class="pilcrow">¶</a></p>
-<p id="section-3-3"><strong>TODO</strong>: Describe the mapping between <code>GenerateKeyPair</code>, <code>DeriveKeyPair</code>,
-<code>SerializePublicKey</code>, <code>DeserializePublicKey</code>, <code>Encap</code>, and <code>Decap</code> in HPKE
-and the functions defined in <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>.<a href="#section-3-3" class="pilcrow">¶</a></p>
-<div id="S-auth">
+<div id="generate-key-pair">
 <section id="section-3.1">
-        <h3 id="name-authencap-and-authdecap">
-<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-authencap-and-authdecap" class="section-name selfRef">AuthEncap and AuthDecap</a>
+        <h3 id="name-key-generation">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-key-generation" class="section-name selfRef">Key generation</a>
         </h3>
-<p id="section-3.1-1">HPKE-ML-KEM is not an authenticated KEM and does not support AuthEncap() or
-AuthDecap(), see <a href="#S-notauth" class="auto internal xref">Section 1.2</a>.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">ML-KEM satisfies the HPKE KEM function <code>GenerateKeyPair()</code>, the randomized
+algorithm to generate a key pair, via Algorithm 19 <code>ML-KEM.KeyGen()</code> in
+<span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>. To be explicit, we use only the seed format <code>(d, z)</code> generated
+by lines 1 and 2 of Algorithm 19 <code>ML-KEM.KeyGen()</code> of <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span> and stored
+securely as described in section 7.1 of <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.1-2">
+<pre>
+def GenerateKeyPair():
+    d = random(32) # `random(n)` MUST comply with {{FIPS203}}'s RBG requirements
+    z = random(32) # `random(n)` MUST comply with {{FIPS203}}'s RBG requirements
+    (ek, _) = ML-KEM.KeyGen_internal(d, z)
+    return (concat(d, z), ek)
+</pre><a href="#section-3.1-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="derive-key-pair">
+<section id="section-3.2">
+        <h3 id="name-key-derivation">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-key-derivation" class="section-name selfRef">Key derivation</a>
+        </h3>
+<p id="section-3.2-1">ML-KEM satisfies the HPKE KEM function <code>DeriveKeyPair(ikm)</code>, the
+deterministic algorithm to derive a key pair from the byte string <code>ikm</code>,
+where <code>ikm</code> <span class="bcp14">SHOULD</span> have at least <code>Nsk</code> bytes, via Algorithm 16
+<code>ML-KEM.KeyGen_internal(d, z)</code> in <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">The input <code>ikm</code> is the 64-byte decapsulation key <code>(d, z)</code>, described as the
+seed in section 7.1 in <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>. The 64 bytes of <code>ikm</code> <span class="bcp14">MUST</span> be generated
+according to section 7.1, Algorithm 19, of <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>, that is by freshly
+sourcing 32 random bytes for <code>d</code> and then freshly sourcing another 32 random
+bytes for <code>z</code> from a FIPS-approved RBG.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+<p id="section-3.2-3">The RBG <span class="bcp14">MUST</span> have a security strength of at least 128 bits for ML-KEM-512, at
+least 192 bits for ML-KEM-768, and at least 256 bits for ML-KEM-1024.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="serialize-public-key">
+<section id="section-3.3">
+        <h3 id="name-public-key-serialization">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-public-key-serialization" class="section-name selfRef">Public key serialization</a>
+        </h3>
+<p id="section-3.3-1">The HPKE KEM function <code>SerializePublicKey()</code> is the identity function, since
+the ML-KEM already uses fixed-length byte strings for public encapsulation
+keys per parameter set.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="deserialize-public-key">
+<section id="section-3.4">
+        <h3 id="name-public-key-deserialization">
+<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-public-key-deserialization" class="section-name selfRef">Public key deserialization</a>
+        </h3>
+<p id="section-3.4-1">The HPKE KEM function <code>DeserializePublicKey()</code> is the identity function,
+since the ML-KEM already uses fixed-length byte strings for public
+encapsulation keys per parameter set.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="encap">
+<section id="section-3.5">
+        <h3 id="name-encapsulation">
+<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-encapsulation" class="section-name selfRef">Encapsulation</a>
+        </h3>
+<p id="section-3.5-1">ML-KEM satisfies the HPKE KEM function <code>Encap(pkR)</code> via Algorithm 20,
+<code>ML-KEM.Encaps(ek)</code>, of <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>, where an ML-KEM encapsulation key check
+failure causes an HPKE <code>EncapError</code>.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="decap">
+<section id="section-3.6">
+        <h3 id="name-decapsulation">
+<a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-decapsulation" class="section-name selfRef">Decapsulation</a>
+        </h3>
+<p id="section-3.6-1">ML-KEM satisfies the HPKE KEM function <code>Decap(enc, skR)</code> via Algorithm 21,
+<code>ML-KEM.Decaps(dk, c)</code>, of <span>[<a href="#FIPS203" class="cite xref">FIPS203</a>]</span>, where an ML-KEM ciphertext check
+failure or decapsulation key check failure or hash check failure cause an
+HPKE <code>DecapError</code>.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
+<p id="section-3.6-2">To be explicit, we derive the expanded decapsulation key from the 64-byte
+seed format and invoke <code>ML-KEM.Decaps(dk)</code> with it:<a href="#section-3.6-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.6-3">
+<pre>
+def Decap(enc, skR):
+    (sk, _) = DeriveKeyPair(skR) # expand decapsulation key from 64-byte format
+    return ML-KEM.Decaps(sk, enc)
+</pre><a href="#section-3.6-3" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="S-auth">
+<section id="section-3.7">
+        <h3 id="name-authencap-and-authdecap">
+<a href="#section-3.7" class="section-number selfRef">3.7. </a><a href="#name-authencap-and-authdecap" class="section-name selfRef">AuthEncap and AuthDecap</a>
+        </h3>
+<p id="section-3.7-1">HPKE-ML-KEM is not an authenticated KEM and does not support AuthEncap() nor
+AuthDecap(), see <a href="#S-notauth" class="auto internal xref">Section 1.2</a>.<a href="#section-3.7-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1357,7 +1475,7 @@ Identifiers" registry.<a href="#section-5-1" class="pilcrow">¶</a></p>
         <dd class="break"></dd>
 <dt id="section-5-2.11">Nsk:</dt>
         <dd style="margin-left: 1.5em" id="section-5-2.12">
-          <p id="section-5-2.12.1">1632<a href="#section-5-2.12.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.12.1">64<a href="#section-5-2.12.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="section-5-2.13">Auth:</dt>
@@ -1397,7 +1515,7 @@ Identifiers" registry.<a href="#section-5-1" class="pilcrow">¶</a></p>
         <dd class="break"></dd>
 <dt id="section-5-2.27">Nsk:</dt>
         <dd style="margin-left: 1.5em" id="section-5-2.28">
-          <p id="section-5-2.28.1">2400<a href="#section-5-2.28.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.28.1">64<a href="#section-5-2.28.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="section-5-2.29">Auth:</dt>
@@ -1437,7 +1555,7 @@ Identifiers" registry.<a href="#section-5-1" class="pilcrow">¶</a></p>
         <dd class="break"></dd>
 <dt id="section-5-2.43">Nsk:</dt>
         <dd style="margin-left: 1.5em" id="section-5-2.44">
-          <p id="section-5-2.44.1">3168<a href="#section-5-2.44.1" class="pilcrow">¶</a></p>
+          <p id="section-5-2.44.1">64<a href="#section-5-2.44.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="section-5-2.45">Auth:</dt>
