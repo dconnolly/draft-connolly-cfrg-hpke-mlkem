@@ -95,6 +95,16 @@ authenticated modes.
 
 {::boilerplate bcp14-tagged}
 
+The following terms are used throughout this document to describe the
+operations, roles, and behaviors of HPKE:
+
+- `concat(x0, ..., xN)`: returns the concatenation of byte
+  strings. `concat(0x01, 0x0203, 0x040506) = 0x010203040506`.
+- `random(n)`: return a pseudorandom byte string of length `n` bytes produced
+  by a cryptographically-secure random number generator, specifically MUST be
+  a FIPS-approved random bit generator (RBG) as described in section 3.3 of
+  {{FIPS203}}.
+
 `GenerateKeyPair`, `DeriveKeyPair`, `SerializePublicKey`,
 `DeserializePublicKey`, `Encap`, `Decap`, `AuthEncap`, `AuthDecap`,
 `Nsecret`, `Nenc`, `Npk`, and `Nsk` are defined in Section 4 of {{RFC9180}}.
@@ -107,7 +117,7 @@ MAL-BIND-K-CT, and LEAK-BIND-K-PK.
 
 # Usage {#usage}
 
-{{FIPS203}} supports two different key formats. This document only supports
+{{FIPS203}} supports two different key formats -  this document only supports
 the 64-byte seed `(d, z)`. This format supports stronger binding properties
 for ML-KEM than the expanded format. The 64-byte seed format protects against
 re-encapsulation attacks. This format provides properties closer to the
@@ -119,14 +129,75 @@ in the 64-byte `(d, z)` format. The 'expanded' format where the decapsulation
 key is expanded into a variable size based on the parameter set but includes
 the hash of the encapsulation key is not used.
 
+## Key generation {#generate-key-pair}
 
-**TODO**: Describe the mapping between `GenerateKeyPair`, `DeriveKeyPair`,
-`SerializePublicKey`, `DeserializePublicKey`, `Encap`, and `Decap` in HPKE
-and the functions defined in {{FIPS203}}.
+ML-KEM satisfies the HPKE KEM function `GenerateKeyPair()`, the randomized
+algorithm to generate a key pair, via Algorithm 19 `ML-KEM.KeyGen()` in
+{{FIPS203}}. To be explicit, we use only the seed format `(d, z)` generated
+by lines 1 and 2 of Algorithm 19 `ML-KEM.KeyGen()` of {{FIPS203}} and stored
+securely as described in section 7.1 of {{FIPS203}}.
+
+~~~
+def GenerateKeyPair():
+    d = random(32) # `random(n)` MUST comply with {{FIPS203}}'s RBG requirements
+    z = random(32) # `random(n)` MUST comply with {{FIPS203}}'s RBG requirements
+    (ek, _) = ML-KEM.KeyGen_internal(d, z)
+    return (concat(d, z), ek)
+~~~
+
+## Key derivation {#derive-key-pair}
+
+ML-KEM satisfies the HPKE KEM function `DeriveKeyPair(ikm)`, the
+deterministic algorithm to derive a key pair from the byte string `ikm`,
+where `ikm` SHOULD have at least `Nsk` bytes, via Algorithm 16
+`ML-KEM.KeyGen_internal(d, z)` in {{FIPS203}}.
+
+The input `ikm` is the 64-byte decapsulation key `(d, z)`, described as the
+seed in section 7.1 in {{FIPS203}}. The 64 bytes of `ikm` MUST be generated
+according to section 7.1, Algorithm 19, of {{FIPS203}}, that is by freshly
+sourcing 32 random bytes for `d` and then freshly sourcing another 32 random
+bytes for `z` from a FIPS-approved RBG.
+
+The RBG MUST have a security strength of at least 128 bits for ML-KEM-512, at
+least 192 bits for ML-KEM-768, and at least 256 bits for ML-KEM-1024.
+
+## Public key serialization {#serialize-public-key}
+
+The HPKE KEM function `SerializePublicKey()` is the identity function, since
+the ML-KEM already uses fixed-length byte strings for public encapsulation
+keys per parameter set.
+
+## Public key deserialization {#deserialize-public-key}
+
+The HPKE KEM function `DeserializePublicKey()` is the identity function,
+since the ML-KEM already uses fixed-length byte strings for public
+encapsulation keys per parameter set.
+
+## Encapsulation {#encap}
+
+ML-KEM satisfies the HPKE KEM function `Encap(pkR)` via Algorithm 20,
+`ML-KEM.Encaps(ek)`, of {{FIPS203}, where an ML-KEM encapsulation key check
+failure causes an HPKE `EncapError`.
+
+## Decapsulation {#decap}
+
+ML-KEM satisfies the HPKE KEM function `Decap(enc, skR)` via Algorithm 21,
+`ML-KEM.Decaps(dk, c)`, of {{FIPS203}, where an ML-KEM ciphertext check
+failure or decapsulation key check failure or hash check failure cause an
+HPKE `DecapError`.
+
+To be explicit, we derive the expanded decapsulation key from the 64-byte
+seed format and invoke `ML-KEM.Decaps(dk)` with it:
+
+~~~
+def Decap(enc, skR):
+    (sk, _) = DeriveKeyPair(skR) # expand decapsulation key from 64-byte format
+    return ML-KEM.Decaps(sk, enc)
+~~~
 
 ## AuthEncap and AuthDecap {#S-auth}
 
-HPKE-ML-KEM is not an authenticated KEM and does not support AuthEncap() or
+HPKE-ML-KEM is not an authenticated KEM and does not support AuthEncap() nor
 AuthDecap(), see {{S-notauth}}.
 
 # Security Considerations {#security-considerations}
@@ -188,7 +259,7 @@ Identifiers" registry.
  : 800
 
  Nsk:
- : 1632
+ : 64
 
  Auth:
  : no
@@ -213,7 +284,7 @@ Identifiers" registry.
  : 1184
 
  Nsk:
- : 2400
+ : 64
 
  Auth:
  : no
@@ -238,7 +309,7 @@ Identifiers" registry.
  : 1568
 
  Nsk:
- : 3168
+ : 64
 
  Auth:
  : no
