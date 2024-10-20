@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-17T00:23:06.248410+00:00",
+  "timestamp": "2024-10-20T00:25:29.931684+00:00",
   "repo": "dconnolly/draft-connolly-cfrg-hpke-mlkem",
   "labels": [
     {
@@ -95,15 +95,15 @@
       "id": "I_kwDOLLka3c6aMjMT",
       "title": "fill  out mapping functions from FIPS 203 to RFC 9180 ",
       "url": "https://github.com/dconnolly/draft-connolly-cfrg-hpke-mlkem/issues/7",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dconnolly",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "Describe the mapping between GenerateKeyPair, DeriveKeyPair, SerializePublicKey, DeserializePublicKey, Encap, and Decap in HPKE and the functions defined in {{FIPS203}}.",
       "createdAt": "2024-10-14T20:29:03Z",
-      "updatedAt": "2024-10-14T20:29:03Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-19T05:20:54Z",
+      "closedAt": "2024-10-19T05:20:54Z",
       "comments": []
     },
     {
